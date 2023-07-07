@@ -14,6 +14,10 @@ extension SecondOccurenceOfSubstring on String {
 }
 
 void main(List<String> arguments) {
+  String olmayanlar = "kalebi";
+  String ex = '^[^$olmayanlar]*\$';
+  var olmayan = RegExp(ex);
+
   File("./data/all.txt")
       .openRead()
       .map(utf8.decode)
@@ -23,15 +27,9 @@ void main(List<String> arguments) {
       if (kelime.length == 5 && !kelime.contains(" ")) {
         var k = kelime.toLowerCaseTr();
         if ( //
-            // !k.contains("k") &&
-            //     !k.contains("a") &&
-            //     !k.contains("e") &&
-            //     !k.contains("m") &&
-            //     !k.contains("t") &&
-            //     !k.contains("o") &&
-            //     !k.contains("z") &&
-            //     !k.contains("u") &&
-            k.contains("a") && k.indexOf("a") == 1 && k.secondIndexOf("a") == 4
+            olmayan.hasMatch(k) &&
+                (k.indexOf("r") == 2 || k.secondIndexOf("r") == 2) &&
+                (k.indexOf("m") == 4 || k.secondIndexOf("m") == 4)
             //
             ) {
           print(k);
