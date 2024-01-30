@@ -14,22 +14,30 @@ extension SecondOccurenceOfSubstring on String {
 }
 
 void main(List<String> arguments) {
-  String olmayanlar = "kalebi";
+  String olmayanlar = "alıktn";
+
   String ex = '^[^$olmayanlar]*\$';
   var olmayan = RegExp(ex);
 
   File("./data/all.txt")
       .openRead()
-      .map(utf8.decode)
+      .transform(utf8.decoder)
+      // .map(utf8.decode)
       .transform(LineSplitter())
       .forEach(
     (kelime) {
-      if (kelime.length == 5 && !kelime.contains(" ")) {
-        var k = kelime.toLowerCaseTr();
+      var k = kelime.toLowerCaseTr();
+      if (kelime.length == 5) {
         if ( //
             olmayan.hasMatch(k) &&
-                (k.indexOf("r") == 2 || k.secondIndexOf("r") == 2) &&
-                (k.indexOf("m") == 4 || k.secondIndexOf("m") == 4)
+                k.contains("s") &&
+                k[0] != "s" &&
+                k.contains("m") &&
+                k[0] != "m" &&
+                k[1] == "e" &&
+                k.contains("i") &&
+                k[3] != "i"
+
             //
             ) {
           print(k);
